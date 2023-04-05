@@ -73,10 +73,24 @@ struct DetailView: View {
         }
         .navigationTitle("Anime detail")
         .navigationBarTitleDisplayMode(.inline)
-
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 ShareLink(item: anime.urlAnime)
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    Button {
+                        if vm.isWatched(anime: anime) {
+                            vm.removeFromWatched(anime: anime)
+                        } else {
+                            vm.addToWatched(anime: anime)
+                        }
+                    } label: {
+                        Text(vm.isWatched(anime: anime) ? "Mark as not read" : "Mark as read")
+                    }
+                }
             }
         }
         .onAppear {

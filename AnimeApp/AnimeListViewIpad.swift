@@ -29,7 +29,6 @@ struct AnimeListViewIpad: View {
                         .tint(vm.isWatched(anime: anime) ? Color(.red) : Color(.init(red: 0, green: 100, blue: 230, alpha: 1)))
                     }
             }
-            .searchable(text: $vm.search, placement: .toolbar)
             .navigationTitle("Animes")
             .navigationDestination(for: Anime.self) { anime in
                 DetailView(anime: anime)
