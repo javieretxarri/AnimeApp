@@ -14,7 +14,7 @@ struct DetailView: View {
     @State var shared = false
     @State var suggestions: [Anime] = []
 
-    let columnsToShow = UIDevice.current.userInterfaceIdiom == .pad ? 6 : 3
+    let columnsToShow = UIDevice.current.userInterfaceIdiom == .pad ? 8 : 3
 
     var body: some View {
         ScrollView {
@@ -22,7 +22,7 @@ struct DetailView: View {
                 AnimeImage(url: anime.image, size: .large)
                     .overlay(alignment: .bottomLeading) {
                         RateCircle(rate: anime.rateNumber, size: .large)
-                            .offset(x: -28, y: 25)
+                            .offset(x: -20, y: 20)
                     }
 
                 Text(anime.title)
@@ -65,9 +65,7 @@ struct DetailView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.body)
 
-                if UIDevice.current.userInterfaceIdiom != .pad {
-                    SuggestionsSection(columns: columnsToShow, suggestions: suggestions)
-                }
+                SuggestionsSection(columns: columnsToShow, suggestions: suggestions)
             }
             .padding(.horizontal)
         }
@@ -88,12 +86,15 @@ struct DetailView: View {
                             vm.addToWatched(anime: anime)
                         }
                     } label: {
-                        Text(vm.isWatched(anime: anime) ? "Mark as not read" : "Mark as read")
+                        Text(vm.isWatched(anime: anime) ? "Mark as not watched" : "Mark as watched")
                     }
                 }
             }
         }
         .onAppear {
+            suggestions = vm.getSuggestions(num: columnsToShow)
+        }
+        .onChange(of: anime) { _ in
             suggestions = vm.getSuggestions(num: columnsToShow)
         }
     }

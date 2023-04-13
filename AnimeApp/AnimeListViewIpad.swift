@@ -62,10 +62,17 @@ struct AnimeListViewIpad: View {
             }
         } detail: {
             if let selection, let anime = vm.animeById(id: selection) {
-                DetailView(anime: anime)
-                    .searchable(text: $vm.search, placement: .toolbar)
+                NavigationStack {
+                    DetailView(anime: anime)
+                        .searchable(text: $vm.search, placement: .toolbar)
+                        .navigationDestination(for: Anime.self) { anime in
+                            DetailView(anime: anime)
+                                .searchable(text: $vm.search, placement: .toolbar)
+                        }
+                }
             }
         }
+
         .alert("Error en la pantalla", isPresented: $vm.showAlert) {
             Button {} label: { Text("OK") }
         } message: {

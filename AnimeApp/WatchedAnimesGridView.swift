@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WatchedAnimesGridView: View {
     @EnvironmentObject var vm: AnimesVM
-    let gridItems: [GridItem] = Array(repeating: GridItem(.flexible()), count: UIDevice.current.userInterfaceIdiom == .pad ? 6 : 3)
+    let gridItems: [GridItem] = Array(repeating: GridItem(.flexible()), count: UIDevice.current.userInterfaceIdiom == .pad ? 9 : 3)
 
     var body: some View {
         NavigationStack {

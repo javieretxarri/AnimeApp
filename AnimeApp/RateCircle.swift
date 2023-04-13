@@ -7,43 +7,65 @@
 
 import SwiftUI
 
-enum CircleSize {
-    case small
-    case large
+enum CircleSize: Int {
+    case small = 40
+    case large = 100
 }
 
 struct RateCircle: View {
     let rate: Double
     var size: CircleSize = .small
+    let gradient = Gradient(colors: [.green, .yellow, .orange, .red])
 
     var body: some View {
-        Text(rate.formatted(.number.precision(.integerAndFractionLength(integer: 1, fraction: 1))))
-            .foregroundColor(.black)
-            .font(size == .small ? .caption : .title)
-            .bold()
-            .padding(size == .small ? 8 : 15)
-            .background {
-                Circle()
-                    .trim(from: 0.0, to: rate / 5)
-                    .stroke(style: StrokeStyle(lineWidth: size == .small ? 5 : 10, lineCap: .round))
-                    .fill(rate < 8 ? Color.orange : Color.yellow)
-                    .rotationEffect(.degrees(-90))
+        Gauge(value: rate, in: 0 ... 5)
+            {}
+            currentValueLabel: {
+                Text(String(format: "%.1f", rate))
             }
-            .background {
-                Circle()
-                    .stroke(style: StrokeStyle(lineWidth: size == .small ? 5 : 10, lineCap: .round))
-                    .fill(Color.gray.opacity(0.5))
-            }
-            .background {
-                Circle()
-                    .fill(Color(white: 0.9))
-            }
-            .padding(.top, size == .small ? 5 : 20)
+            .gaugeStyle(SpeedometerGaugeStyle(size: size))
     }
 }
 
 struct RateCircle_Previews: PreviewProvider {
     static var previews: some View {
-        RateCircle(rate: 4.5, size: .large)
+        ZStack {
+            Color.blue
+                .ignoresSafeArea()
+            VStack {
+                RateCircle(rate: 4.5, size: .small)
+                RateCircle(rate: 4.5, size: .large)
+                    .padding(.top, 20)
+            }
+        }
+    }
+}
+
+struct SpeedometerGaugeStyle: GaugeStyle {
+    let size: CircleSize
+    let gradient = Gradient(colors: [.red, .orange, .yellow, .green])
+
+    var purpleGradient = LinearGradient(gradient: Gradient(colors: [Color(red: 207/255, green: 150/255, blue: 207/255), Color(red: 107/255, green: 116/255, blue: 179/255)]), startPoint: .trailing, endPoint: .leading)
+
+    func makeBody(configuration: Configuration) -> some View {
+        ZStack {
+            Circle()
+                .foregroundColor(Color(.white))
+
+            Circle()
+                .trim(from: 0, to: 1)
+                .stroke(Color(red: 230/255, green: 230/255, blue: 230/255), lineWidth: size == .small ? 6 : 12)
+                .rotationEffect(.degrees(-90))
+
+            Circle()
+                .trim(from: 0, to: configuration.value)
+                .stroke(gradient, lineWidth: size == .small ? 6 : 12)
+                .rotationEffect(.degrees(-90))
+
+            configuration.currentValueLabel
+                .font(.system(size: size == .small ? 12 : 20, weight: .bold, design: .rounded))
+                .foregroundColor(.green)
+        }
+        .frame(width: size == .small ? 30 : 60, height: size == .small ? 30 : 60)
     }
 }
