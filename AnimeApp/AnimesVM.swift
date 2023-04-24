@@ -20,7 +20,7 @@ final class AnimesVM: ObservableObject {
         case none = "None"
     }
 
-    let persistence: AnimePersistence
+    let persistence: AnimesPersistence
     let filteredTypes = AnimeType.allCases
 
     @Published var animes: [Anime]
@@ -72,7 +72,7 @@ final class AnimesVM: ObservableObject {
     @Published var showAlert = false
     @Published var errorMsg = ""
 
-    init(persistence: AnimePersistence = .shared) {
+    init(persistence: AnimesPersistence = AnimeProdPersistence()) {
         self.persistence = persistence
         do {
             self.animes = try persistence.loadAnimes()

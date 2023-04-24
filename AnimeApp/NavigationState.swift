@@ -13,5 +13,4 @@ enum NavigationState {
     case splash
     case welcome
     case home
-    case detail
 }

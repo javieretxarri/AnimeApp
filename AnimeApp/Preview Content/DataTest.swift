@@ -7,10 +7,22 @@
 
 import Foundation
 
-struct FilePreview: FileLocation {
-    var fileURL: URL {
-        Bundle.main.url(forResource: "animetest", withExtension: "json")!
+final class AnimePreviewPersistence: AnimesPersistence {
+    static let shared = AnimePreviewPersistence()
+    let fileURL = Bundle.main.url(forResource: "animetest", withExtension: "json")!
+    let fileWatchedDocument = Bundle.main.url(forResource: "watchedanimestest", withExtension: "json")!
+
+    func loadAnimes() throws -> [Anime] {
+        let data = try Data(contentsOf: fileURL)
+        return try JSONDecoder().decode([Anime].self, from: data)
     }
+
+    func loadWatched() throws -> [Anime] {
+        let data = try Data(contentsOf: fileWatchedDocument)
+        return try JSONDecoder().decode([Anime].self, from: data)
+    }
+
+    func saveWatched(animes: [Anime]) throws {}
 }
 
 extension Anime {
@@ -30,5 +42,5 @@ extension Anime {
 }
 
 extension AnimesVM {
-    static let preview = AnimesVM(persistence: AnimePersistence(fileLocation: FilePreview()))
+    static let preview = AnimesVM(persistence: AnimePreviewPersistence())
 }

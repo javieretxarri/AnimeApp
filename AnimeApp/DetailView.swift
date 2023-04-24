@@ -65,7 +65,9 @@ struct DetailView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.body)
 
-                SuggestionsSection(columns: columnsToShow, suggestions: suggestions)
+                if suggestions.count > 0 {
+                    SuggestionsSection(columns: columnsToShow, suggestions: suggestions)
+                }
             }
             .padding(.horizontal)
         }

@@ -29,6 +29,7 @@
 		F9136D6729DD7B3F0094B7C9 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9136D6629DD7B3F0094B7C9 /* DetailView.swift */; };
 		F9136D6A29DD7B4B0094B7C9 /* NavigationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9136D6829DD7B4B0094B7C9 /* NavigationState.swift */; };
 		F9136D6B29DD7B4B0094B7C9 /* StateAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9136D6929DD7B4B0094B7C9 /* StateAppView.swift */; };
+		F935400C29F68105006947FA /* watchedanimestest.json in Resources */ = {isa = PBXBuildFile; fileRef = F935400B29F68105006947FA /* watchedanimestest.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		F9136D6829DD7B4B0094B7C9 /* NavigationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationState.swift; sourceTree = "<group>"; };
 		F9136D6929DD7B4B0094B7C9 /* StateAppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateAppView.swift; sourceTree = "<group>"; };
 		F930ADAB29DD82C000093607 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F935400B29F68105006947FA /* watchedanimestest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = watchedanimestest.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +95,6 @@
 				F9136D4429DD7A570094B7C9 /* Components */,
 				F9136D4329DD7A4C0094B7C9 /* ViewModels */,
 				F9136D4229DD7A450094B7C9 /* Models */,
-				F9136D4129DD7A3C0094B7C9 /* Helpers */,
 				F9136D4029DD7A340094B7C9 /* Resources */,
 				F9136D3F29DD7A1B0094B7C9 /* system */,
 				F9136D3329DD79EA0094B7C9 /* Preview Content */,
@@ -105,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				F9136D3429DD79EA0094B7C9 /* Preview Assets.xcassets */,
+				F935400B29F68105006947FA /* watchedanimestest.json */,
 				F9136D3B29DD7A080094B7C9 /* animetest.json */,
 				F9136D3D29DD7A100094B7C9 /* DataTest.swift */,
 			);
@@ -127,13 +129,6 @@
 				F9136D4729DD7AAF0094B7C9 /* anime.json */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		F9136D4129DD7A3C0094B7C9 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Helpers;
 			sourceTree = "<group>";
 		};
 		F9136D4229DD7A450094B7C9 /* Models */ = {
@@ -273,6 +268,7 @@
 				F9136D3529DD79EA0094B7C9 /* Preview Assets.xcassets in Resources */,
 				F9136D3C29DD7A080094B7C9 /* animetest.json in Resources */,
 				F9136D3229DD79EA0094B7C9 /* Assets.xcassets in Resources */,
+				F935400C29F68105006947FA /* watchedanimestest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

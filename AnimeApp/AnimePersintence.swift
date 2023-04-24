@@ -7,35 +7,25 @@
 
 import Foundation
 
-protocol FileLocation {
-    var fileURL: URL { get }
+protocol AnimesPersistence {
+    func loadAnimes() throws -> [Anime]
+    func loadWatched() throws -> [Anime]
+    func saveWatched(animes: [Anime]) throws
 }
 
-struct FileProduction: FileLocation {
-    var fileURL: URL {
-        Bundle.main.url(forResource: "anime", withExtension: "json")!
-    }
-}
-
-final class AnimePersistence {
-    static let shared = AnimePersistence()
-
-    let watchedAnimesDocument = URL.documentsDirectory.appending(path: "watchedanimes.json")
-
-    let fileLocation: FileLocation
-
-    init(fileLocation: FileLocation = FileProduction()) {
-        self.fileLocation = fileLocation
-    }
+final class AnimeProdPersistence: AnimesPersistence {
+    static let shared = AnimeProdPersistence()
+    let fileURL = Bundle.main.url(forResource: "anime", withExtension: "json")!
+    let fileWatchedDocument = URL.documentsDirectory.appending(path: "watchedanimes.json")
 
     func loadAnimes() throws -> [Anime] {
-        let data = try Data(contentsOf: fileLocation.fileURL)
+        let data = try Data(contentsOf: fileURL)
         return try JSONDecoder().decode([Anime].self, from: data)
     }
 
     func loadWatched() throws -> [Anime] {
-        if FileManager.default.fileExists(atPath: watchedAnimesDocument.path()) {
-            let data = try Data(contentsOf: watchedAnimesDocument)
+        if FileManager.default.fileExists(atPath: fileWatchedDocument.path()) {
+            let data = try Data(contentsOf: fileWatchedDocument)
             return try JSONDecoder().decode([Anime].self, from: data)
         } else {
             return []
@@ -44,6 +34,6 @@ final class AnimePersistence {
 
     func saveWatched(animes: [Anime]) throws {
         let data = try JSONEncoder().encode(animes)
-        try data.write(to: watchedAnimesDocument, options: .atomic)
+        try data.write(to: fileWatchedDocument, options: .atomic)
     }
 }

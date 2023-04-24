@@ -15,6 +15,9 @@ struct AnimeAppApp: App {
         WindowGroup {
             StateAppView()
                 .environmentObject(vm)
+                .onAppear {
+                    print(URL.documentsDirectory)
+                }
         }
     }
 }

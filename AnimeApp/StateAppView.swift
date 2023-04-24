@@ -32,8 +32,6 @@ struct StateAppView: View {
                 Welcome(state: $viewState, namespace: namespace)
             case .home:
                 Home()
-            case .detail:
-                EmptyView()
             }
         }
         .animation(.easeOut, value: viewState)
